@@ -1,29 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { clearData } from '../utils/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearData } from '../utils/dataSlice';
 
-function ClearButton({ clearData, hasData }) {
+const ClearButton = () => {
+    const dispatch = useDispatch();
+    const hasData = useSelector((state) => state.data.data?.length !== 0);
+
     const handleClear = (event) => {
         event.preventDefault();
-        clearData();
+        dispatch(clearData());
     };
 
     return (
         <div id="clearDiv" style={{ display: hasData ? 'block' : 'none' }}>
-            <form id="clearResults" onClick={handleClear}>
+            <form id="clearResults" onSubmit={handleClear}>
                 <input type="submit" value="Очистить историю" id="submit-button" />
             </form>
         </div>
     );
-}
-
-
-const mapStateToProps = (state) => ({
-    hasData: state.data.length > 0,
-});
-
-const mapDispatchToProps = {
-    clearData,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClearButton);
+export default ClearButton;

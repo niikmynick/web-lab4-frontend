@@ -1,11 +1,11 @@
 import Graph from "./Graph";
-import Form from "./Form";
+import HitForm from "./HitForm";
 
 function TopDiv() {
   return (
       <div id="top-div">
           <Graph />
-          <Form />
+          <HitForm />
       </div>
   );
 }

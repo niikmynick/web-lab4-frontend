@@ -1,19 +1,20 @@
 import './App.css';
-import Header from './templates/Header';
-import ResultsTable from "./templates/ResultsTable";
-import TopDiv from "./templates/TopDiv";
-import ClearButton from './templates/ClearButton';
+import React from 'react';
+import SwitchingPage from "./pages/SwitchingPage";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import AuthForm from "./templates/AuthForm";
+import SignInForm from "./templates/SignInForm";
+
 
 function App() {
   return (
-      <div>
-        <Header />
-        <TopDiv />
-        <div id="results-div">
-          <ResultsTable />
-          <ClearButton />
-        </div>
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={ <SwitchingPage /> } />
+          {/*<Route path="logIn" element={<AuthForm />} />*/}
+          {/*<Route path="signIn" element={<SignInForm />} />*/}
+        </Routes>
+      </BrowserRouter>
   );
 }
 

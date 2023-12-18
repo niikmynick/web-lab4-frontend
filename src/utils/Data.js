@@ -1,48 +1,36 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { fetchData } from './actions';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from './dataSlice';
 
-class Data extends React.Component {
-    componentDidMount() {
-        this.props.fetchData();
+const Data = () => {
+    const dispatch = useDispatch();
+    const { data, loading, error } = useSelector((state) => state.data);
+
+    useEffect(() => {
+        dispatch(fetchData());
+    }, [dispatch]);
+
+    if (loading) {
+        console.log('Loading');
     }
 
-    render() {
-        const { data, loading, error } = this.props;
-
-        if (loading) {
-            console.log("Loading");
-        }
-
-        if (error) {
-            console.log("Error");
-        }
-
-        return (
-            data?.map((outer, index) =>
-                outer.map((n) =>
-                    <tr key={index}>
-                        <td> {n.x} </td>
-                        <td> {n.y} </td>
-                        <td> {n.r} </td>
-                        <td> {n.status ? "In" : "Out"} </td>
-                        <td> {n.requestTime} </td>
-                        <td> {n.scriptTime} </td>
-                    </tr>
-                )
-            )
-        );
+    if (error) {
+        console.log('Error');
     }
-}
 
-const mapStateToProps = (state) => ({
-    data: state.data,
-    loading: state.loading,
-    error: state.error,
-});
+    return (
+        data?.map((n) => (
+            <tr key={n.id}>
+                <td>{n.x}</td>
+                <td>{n.y}</td>
+                <td>{n.r}</td>
+                <td>{n.status ? 'In' : 'Out'}</td>
+                <td>{n.requestTime}</td>
+                <td>{n.scriptTime}</td>
+            </tr>
+        ))
 
-const mapDispatchToProps = {
-    fetchData,
+    );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Data);
+export default Data;

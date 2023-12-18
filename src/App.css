@@ -59,6 +59,7 @@ label {
 }
 
 input[type="text"],
+input[type="password"],
 select {
   width: 80%;
   padding: 10px;
@@ -227,4 +228,50 @@ main {
 
 .r-value {
   margin-right: 10px;
+}
+
+
+@media screen and (min-width: 1195px) {
+  .graph-div, .form-div {
+    width: 48%;
+  }
+}
+
+@media screen and (min-width: 766px) and (max-width: 1194px) {
+  .graph-div, .form-div {
+    width: 48%;
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .graph-div, .form-div {
+    width: 100%;
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 84vh;
+}
+
+.toggle-link {
+  display: flex;
+  justify-content: center;
+}
+
+#submit-button {
+    margin: 10px;
+}
+
+#password {
+
 }

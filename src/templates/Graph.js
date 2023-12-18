@@ -1,14 +1,34 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { sendData } from '../utils/dataSlice';
+import { drawNewPoint } from '../script/drawer';
+
 function Graph() {
+    const dispatch = useDispatch();
+
+    const handleClick = (event) => {
+        let r = document.getElementById('r-value').value;
+        if (r === '') {
+            return;
+        }
+        r = parseFloat(r);
+        const x = (event.clientX - 240) / (100 / r);
+        const y = (event.clientY - 305) / (-100 / r);
+
+        dispatch(sendData({x, y, r}));
+        drawNewPoint(x, y, r);
+    };
+
     return (
         <div className="graph-div" id="graph-svg">
-            <svg id='graphSVG' width='400' height='400'>
-                <polygon className='figure' points='200,200 200,150 150,200' fill='#ADD8E6' />
+            <svg id='graphSVG' width='400' height='400' onClick={handleClick}>
+                <polygon className='figure' points='200,200 300,200 200,100' fill='#ADD8E6' />
 
                 <rect className='figure' x='200' y='200' width='100' height='100' fill='#ADD8E6' />
 
-                <circle className='figure' cx='200' cy='200' r='50' fill='#ADD8E6' mask='url(#mask)' />
+                <circle className='figure' cx='200' cy='200' r='100' fill='#ADD8E6' mask='url(#mask)' />
                 <mask id='mask'>
-                    <rect x='200' y='0' width='200' height='200' fill='#FFFFFF' />
+                    <rect x='100' y='0' width='100' height='200' fill='#FFFFFF' />
                 </mask>
 
                 <line x1='50' y1='200' x2='350' y2='200' stroke='#000000' strokeWidth='2px' />
@@ -54,5 +74,4 @@ function Graph() {
         </div>
     );
 }
-
 export default Graph;
